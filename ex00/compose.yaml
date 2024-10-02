@@ -1,0 +1,14 @@
+services:
+
+  db:
+    image : postgres:latest
+    container_name: mydbcontainer
+    ports: 
+      - 5432:5432
+    env_file : 
+      - path: ".postgres.env"
+        required: true
+  # environment:
+    #  - POSTGRES_PASSWORD=mysecretpassword
+    #  - POSTGRES_USER=adconsta
+    #  - POSTGRES_DB=piscineds
