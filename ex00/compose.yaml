@@ -2,13 +2,11 @@ services:
 
   db:
     image : postgres:latest
-    container_name: mydbcontainer
+    container_name: mydbctnr
     ports: 
       - 5432:5432
-    env_file : 
-      - path: ".postgres.env"
-        required: true
-  # environment:
-    #  - POSTGRES_PASSWORD=mysecretpassword
-    #  - POSTGRES_USER=adconsta
-    #  - POSTGRES_DB=piscineds
+    environment: 
+      - POSTGRES_USER=${USER_NAME:?error}
+      - POSTGRES_PASSWORD=${PASSWORD:?error}
+      - POSTGRES_DB=${DB_NAME:?error}
+      - POSTGRES_INITDB_ARGS="--auth=password"
