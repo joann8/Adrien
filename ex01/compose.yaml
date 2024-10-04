@@ -1,0 +1,26 @@
+services:
+
+  db:
+    image : postgres:latest
+    container_name: mydbctnr
+    ports: 
+      - 5432:5432
+    environment: 
+      - POSTGRES_USER=${USER_NAME:?error}
+      - POSTGRES_PASSWORD=${PASSWORD:?error}
+      - POSTGRES_DB=${DB_NAME:?error}
+      - POSTGRES_INITDB_ARGS="--auth=password"
+    volumes:
+      - ${PWD}/subject_data:/import
+      
+  pgadmin : 
+    image: dpage/pgadmin4:latest
+    container_name: mypgadminctnr
+    ports:
+      - 8080:80
+    environment:
+    - PGADMIN_DEFAULT_EMAIL=${USER_EMAIL:?error}
+    - PGADMIN_DEFAULT_PASSWORD=${PASSWORD:?error}
+    volumes:
+      - ${PWD}/subject_data:/import
+      - ${PWD}/subject_data:/var/lib/pgadmin/storage/adconsta_student.42.lausanne.ch
